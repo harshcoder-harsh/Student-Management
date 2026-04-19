@@ -1,67 +1,94 @@
-# Student Management System
+🎓 Student Management System
+A production-ready Student Management System built with Node.js, Express, TypeScript, and MongoDB — featuring clean architecture, JWT authentication, and full Docker support.
 
-A production-ready Student Management System built with Node.js, Express, TypeScript, and MongoDB. 
+✨ Features
+CategoryDetails🏗️ ArchitectureLayered MVC — Routes → Controllers → Services → Models🔐 AuthenticationJWT-based role auth (Admin, Student) with Bcrypt password hashing👨‍🎓 Core ModulesStudent CRUD, Course Enrollments, Attendance Tracking🚦 Rate LimitingAPI rate limiting middleware📋 LoggingMorgan HTTP logging + Winston error logging to files🗑️ Soft DeleteSoft delete pattern across entities📁 File UploadProfile image upload via Multer📧 Email ServiceMock email service using Nodemailer📖 DocumentationSwagger API docs + extensive Markdown diagrams in docs/🐳 DockerContainerized app and MongoDB via Docker Compose
 
-## Features
-- **Clean Architecture**: Layered MVC (Routes, Controllers, Services, Models).
-- **Authentication**: JWT based role authentication (Admin, Student) using Bcrypt.
-- **Core Modules**: Student CRUD, Course Enrollments, Attendance Tracking.
-- **Advanced Features**: API Rate limiting, Morgan logging + Winston error logging to files, Soft delete pattern, File upload using Multer (Profile Images), mock email service (Nodemailer).
-- **Documentation**: Swagger API docs, and extensive markdown diagrams (`docs/`).
-- **Dockerized**: Containerized App and MongoDB.
+🛠️ Tech Stack
+LayerTechnologyRuntimeNode.jsFrameworkExpress.jsLanguageTypeScriptDatabaseMongoDB with Mongoose ODMTestingJest + SupertestEnvironmentDocker + Docker Compose
 
-## Tech Stack
-- Backend: Node.js, Express.js, TypeScript
-- Database: MongoDB (Mongoose ODM)
-- Testing: Jest, Supertest
-- Environment: Docker, Docker-Compose
+🚀 Getting Started
+Prerequisites
 
-## Setup Instructions
+Node.js >= 18.x
+MongoDB (local or Atlas)
+Docker & Docker Compose (for containerized setup)
 
-### Local Storage setup
-1. Install dependencies:
-```bash
-npm install
-```
-2. Configure environment:
-Rename `.env.example` to `.env` and fill the variables.
-3. Start the dev server:
-```bash
-npm run dev
-```
 
-### Docker Setup
-To run the full stack effortlessly (MongoDB and Application):
-```bash
-docker-compose up --build
-```
-*Application runs on http://localhost:3000.*
+Option 1 — Local Setup
+1. Install dependencies
+bashnpm install
+2. Configure environment
+Rename .env.example to .env and fill in the required variables:
+bashcp .env.example .env
+3. Start the development server
+bashnpm run dev
 
-## API Endpoints
-All endpoints are fully documented in Swagger. Once the server is running, visit:
-**`http://localhost:3000/api-docs`**
+App runs at http://localhost:3000
 
-Some highlighted routes:
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `GET /api/students`
-- `POST /api/courses`
-- `POST /api/courses/{id}/enroll`
-- `POST /api/attendance`
 
-## Folder Structure
-- `src/`
-  - `controllers/`: Request handling logic
-  - `services/`: Business logic operations
-  - `models/`: Mongoose schemas
-  - `routes/`: Express routers
-  - `middlewares/`: Custom middlewares (Auth, RateLimiter, Upload)
-  - `utils/`: Reusable utilities (Logger, Email mock)
-- `tests/`: Integration tests using Jest
-- `docs/`: Diagram architectures and idea info
+Option 2 — Docker Setup (recommended)
+Run the full stack (App + MongoDB) with a single command:
+bashdocker-compose up --build
 
-## Testing
-Run unit and integration tests via:
-```bash
-npm run test
+App runs at http://localhost:3000
+
+
+📁 Folder Structure
+├── src/
+│   ├── controllers/        # Request handling logic
+│   ├── services/           # Business logic operations
+│   ├── models/             # Mongoose schemas
+│   ├── routes/             # Express routers
+│   ├── middlewares/        # Auth, RateLimiter, Upload
+│   └── utils/              # Logger, Email mock
+├── tests/                  # Integration tests (Jest + Supertest)
+├── docs/                   # Architecture diagrams and documentation
+├── docker-compose.yml
+├── Dockerfile
+└── .env.example
+
+📡 API Endpoints
+Full API documentation is available via Swagger UI once the server is running:
+
+http://localhost:3000/api-docs
+
+Highlighted Routes
+MethodEndpointDescriptionAccessPOST/api/auth/registerRegister a new userPublicPOST/api/auth/loginLogin and receive JWTPublicGET/api/studentsGet all studentsAdminGET/api/students/:idGet student by IDAdmin / StudentPUT/api/students/:idUpdate student profileAdmin / StudentDELETE/api/students/:idSoft delete studentAdminPOST/api/coursesCreate a courseAdminGET/api/coursesList all coursesAuthenticatedPOST/api/courses/:id/enrollEnroll in a courseStudentPOST/api/attendanceMark attendanceAdmin
+
+🧪 Testing
+Run all unit and integration tests:
+bashnpm run test
+Run tests with coverage report:
+bashnpm run test -- --coverage
+
+🔐 Environment Variables
+VariableDescriptionExamplePORTServer port3000MONGODB_URIMongoDB connection stringmongodb://localhost:27017/smsJWT_SECRETSecret key for JWT signingyour_secret_keyJWT_EXPIRES_INJWT expiry duration7dBCRYPT_SALT_ROUNDSBcrypt hashing rounds10EMAIL_HOSTSMTP host for Nodemailersmtp.mailtrap.ioEMAIL_USERSMTP usernameyour_email_userEMAIL_PASSSMTP passwordyour_email_pass
+
+🏛️ Architecture Overview
+Client Request
+     │
+     ▼
+ [ Routes ]
+     │
+     ▼
+[ Middlewares ]  ← Auth, RateLimiter, Multer
+     │
+     ▼
+[ Controllers ]  ← Request / Response handling
+     │
+     ▼
+ [ Services ]    ← Business logic
+     │
+     ▼
+  [ Models ]     ← Mongoose schemas (MongoDB)
+
+🐳 Docker Services
+ServicePortDescriptionapp3000Node.js Express applicationmongo27017MongoDB database
+
+📜 Scripts
+CommandDescriptionnpm run devStart dev server with hot reloadnpm run buildCompile TypeScript to JavaScriptnpm startRun compiled production buildnpm run testRun all testsnpm run lintRun ESLint
+
+📄 License
+This project is licensed under the MIT License.
 ```
