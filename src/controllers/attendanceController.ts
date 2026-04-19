@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import * as attendanceService from '../services/attendanceService';
-
 export const markAttendance = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const attendance = await attendanceService.markAttendance(req.body);
@@ -9,7 +8,6 @@ export const markAttendance = async (req: Request, res: Response, next: NextFunc
     res.status(400).json({ success: false, message: error.message });
   }
 };
-
 export const getStudentAttendance = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { studentId } = req.params;
@@ -20,7 +18,6 @@ export const getStudentAttendance = async (req: Request, res: Response, next: Ne
     next(error);
   }
 };
-
 export const getMonthlyReport = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { courseId, month, year } = req.query;

@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import * as courseService from '../services/courseService';
-
 export const createCourse = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const course = await courseService.createCourse(req.body);
@@ -9,7 +8,6 @@ export const createCourse = async (req: Request, res: Response, next: NextFuncti
     res.status(400).json({ success: false, message: error.message });
   }
 };
-
 export const getCourses = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const courses = await courseService.getCourses();
@@ -18,7 +16,6 @@ export const getCourses = async (req: Request, res: Response, next: NextFunction
     next(error);
   }
 };
-
 export const enrollStudent = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { studentId } = req.body;
@@ -29,7 +26,6 @@ export const enrollStudent = async (req: Request, res: Response, next: NextFunct
     res.status(400).json({ success: false, message: error.message });
   }
 };
-
 export const getEnrolledStudents = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const students = await courseService.getStudentsInCourse(req.params.id);

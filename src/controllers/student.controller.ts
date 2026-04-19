@@ -1,14 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { StudentService } from '../services/student.service';
 import { AppError } from '../utils/AppError';
-
 export class StudentController {
     private studentService: StudentService;
-
     constructor() {
         this.studentService = new StudentService();
     }
-
     createStudent = (req: Request, res: Response, next: NextFunction) => {
         try {
             const student = this.studentService.createStudent(req.body);
@@ -20,7 +17,6 @@ export class StudentController {
             next(error);
         }
     }
-
     getAllStudents = (req: Request, res: Response, next: NextFunction) => {
         try {
             const result = this.studentService.getAllStudents(req.query);
@@ -32,7 +28,6 @@ export class StudentController {
             next(error);
         }
     }
-
     getStudentById = (req: Request, res: Response, next: NextFunction) => {
         try {
             const id = parseInt(req.params.id as string);
@@ -48,7 +43,6 @@ export class StudentController {
             next(error);
         }
     }
-
     updateStudent = (req: Request, res: Response, next: NextFunction) => {
         try {
             const id = parseInt(req.params.id as string);
@@ -64,7 +58,6 @@ export class StudentController {
             next(error);
         }
     }
-
     deleteStudent = (req: Request, res: Response, next: NextFunction) => {
         try {
             const id = parseInt(req.params.id as string);

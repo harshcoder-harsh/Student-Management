@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema } from 'mongoose';
-
 export interface ICourse extends Document {
   name: string;
   code: string;
@@ -7,7 +6,6 @@ export interface ICourse extends Document {
   students: mongoose.Types.ObjectId[];
   createdAt: Date;
 }
-
 const CourseSchema: Schema = new Schema({
   name: { type: String, required: true },
   code: { type: String, required: true, unique: true, index: true },
@@ -15,5 +13,4 @@ const CourseSchema: Schema = new Schema({
   students: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
   createdAt: { type: Date, default: Date.now }
 });
-
 export default mongoose.model<ICourse>('Course', CourseSchema);

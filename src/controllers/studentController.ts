@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import * as studentService from '../services/studentService';
-
 export const getStudents = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await studentService.getAllStudents(req.query);
@@ -9,7 +8,6 @@ export const getStudents = async (req: Request, res: Response, next: NextFunctio
     next(error);
   }
 };
-
 export const getStudent = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const student = await studentService.getStudentById(req.params.id);
@@ -18,7 +16,6 @@ export const getStudent = async (req: Request, res: Response, next: NextFunction
     res.status(404).json({ success: false, message: error.message });
   }
 };
-
 export const updateStudent = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const student = await studentService.updateStudent(req.params.id, req.body);
@@ -27,7 +24,6 @@ export const updateStudent = async (req: Request, res: Response, next: NextFunct
     res.status(400).json({ success: false, message: error.message });
   }
 };
-
 export const deleteStudent = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await studentService.softDeleteStudent(req.params.id);
@@ -36,7 +32,6 @@ export const deleteStudent = async (req: Request, res: Response, next: NextFunct
     res.status(400).json({ success: false, message: error.message });
   }
 };
-
 export const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.file) {

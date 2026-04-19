@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema } from 'mongoose';
-
 export interface IStudent extends Document {
   name: string;
   email: string;
@@ -10,7 +9,6 @@ export interface IStudent extends Document {
   createdAt: Date;
   deletedAt?: Date | null;
 }
-
 const StudentSchema: Schema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true, index: true },
@@ -19,15 +17,12 @@ const StudentSchema: Schema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: 'User' },
   profileImage: { type: String },
   createdAt: { type: Date, default: Date.now },
-  deletedAt: { type: Date, default: null } // Soft delete field
+  deletedAt: { type: Date, default: null } 
 });
-
-// Exclude softly deleted students by default in find queries
 StudentSchema.pre('find', function() {
   this.where({ deletedAt: null });
 });
 StudentSchema.pre('findOne', function() {
   this.where({ deletedAt: null });
 });
-
 export default mongoose.model<IStudent>('Student', StudentSchema);

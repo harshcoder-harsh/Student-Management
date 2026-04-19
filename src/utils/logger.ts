@@ -1,18 +1,14 @@
 import winston from 'winston';
 import fs from 'fs';
 import path from 'path';
-
-// Ensure logs directory exists
 const logDir = 'logs';
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
-
 const logFormat = winston.format.combine(
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
   winston.format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
 );
-
 const logger = winston.createLogger({
   level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
   format: logFormat,
@@ -21,7 +17,6 @@ const logger = winston.createLogger({
     new winston.transports.File({ filename: path.join(logDir, 'combined.log') })
   ]
 });
-
 if (process.env.NODE_ENV !== 'production') {
   logger.add(
     new winston.transports.Console({
@@ -29,5 +24,4 @@ if (process.env.NODE_ENV !== 'production') {
     })
   );
 }
-
 export default logger;
