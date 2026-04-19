@@ -1,40 +1,87 @@
-Student Management System
-A production-ready Student Management System built with Node.js, Express, TypeScript, and MongoDB — featuring clean architecture, JWT authentication, and full Docker support.
+# Student Management System
 
-Features
-CategoryDetailsArchitectureLayered MVC — Routes → Controllers → Services → ModelsAuthenticationJWT-based role auth (Admin, Student) with Bcrypt password hashingCore ModulesStudent CRUD, Course Enrollments, Attendance TrackingRate LimitingAPI rate limiting middlewareLoggingMorgan HTTP logging + Winston error logging to filesSoft DeleteSoft delete pattern across entitiesFile UploadProfile image upload via MulterEmail ServiceMock email service using NodemailerDocumentationSwagger API docs + extensive Markdown diagrams in docs/DockerContainerized app and MongoDB via Docker Compose
+A production-ready **Student Management System** built with **Node.js**, **Express**, **TypeScript**, and **MongoDB** — featuring clean architecture, JWT authentication, and full Docker support.
 
-Tech Stack
-LayerTechnologyRuntimeNode.jsFrameworkExpress.jsLanguageTypeScriptDatabaseMongoDB with Mongoose ODMTestingJest + SupertestEnvironmentDocker + Docker Compose
+---
 
-Getting Started
-Prerequisites
+## Features
 
-Node.js >= 18.x
-MongoDB (local or Atlas)
-Docker & Docker Compose (for containerized setup)
+| Category | Details |
+|---|---|
+| **Architecture** | Layered MVC — Routes → Controllers → Services → Models |
+| **Authentication** | JWT-based role auth (Admin, Student) with Bcrypt password hashing |
+| **Core Modules** | Student CRUD, Course Enrollments, Attendance Tracking |
+| **Rate Limiting** | API rate limiting middleware |
+| **Logging** | Morgan HTTP logging + Winston error logging to files |
+| **Soft Delete** | Soft delete pattern across entities |
+| **File Upload** | Profile image upload via Multer |
+| **Email Service** | Mock email service using Nodemailer |
+| **Documentation** | Swagger API docs + extensive Markdown diagrams in `docs/` |
+| **Docker** | Containerized app and MongoDB via Docker Compose |
 
+---
 
-Option 1 — Local Setup
-1. Install dependencies
-bashnpm install
-2. Configure environment
-Rename .env.example to .env and fill in the required variables:
-bashcp .env.example .env
-3. Start the development server
-bashnpm run dev
+## Tech Stack
 
-App runs at http://localhost:3000
+| Layer | Technology |
+|---|---|
+| **Runtime** | Node.js |
+| **Framework** | Express.js |
+| **Language** | TypeScript |
+| **Database** | MongoDB with Mongoose ODM |
+| **Testing** | Jest + Supertest |
+| **Environment** | Docker + Docker Compose |
 
+---
 
-Option 2 — Docker Setup (recommended)
+## Getting Started
+
+### Prerequisites
+
+- Node.js `>= 18.x`
+- MongoDB (local or Atlas)
+- Docker & Docker Compose *(for containerized setup)*
+
+---
+
+### Option 1 — Local Setup
+
+**1. Install dependencies**
+```bash
+npm install
+```
+
+**2. Configure environment**
+
+Rename `.env.example` to `.env` and fill in the required variables:
+```bash
+cp .env.example .env
+```
+
+**3. Start the development server**
+```bash
+npm run dev
+```
+
+> App runs at **http://localhost:3000**
+
+---
+
+### Option 2 — Docker Setup *(recommended)*
+
 Run the full stack (App + MongoDB) with a single command:
-bashdocker-compose up --build
 
-App runs at http://localhost:3000
+```bash
+docker-compose up --build
+```
 
+> App runs at **http://localhost:3000**
 
-Folder Structure
+---
+
+## Folder Structure
+
+```
 ├── src/
 │ ├── controllers/ # Request handling logic
 │ ├── services/ # Business logic operations
@@ -47,25 +94,67 @@ Folder Structure
 ├── docker-compose.yml
 ├── Dockerfile
 └── .env.example
+```
 
-API Endpoints
-Full API documentation is available via Swagger UI once the server is running:
+---
 
-http://localhost:3000/api-docs
+## API Endpoints
 
-Highlighted Routes
-MethodEndpointDescriptionAccessPOST/api/auth/registerRegister a new userPublicPOST/api/auth/loginLogin and receive JWTPublicGET/api/studentsGet all studentsAdminGET/api/students/:idGet student by IDAdmin / StudentPUT/api/students/:idUpdate student profileAdmin / StudentDELETE/api/students/:idSoft delete studentAdminPOST/api/coursesCreate a courseAdminGET/api/coursesList all coursesAuthenticatedPOST/api/courses/:id/enrollEnroll in a courseStudentPOST/api/attendanceMark attendanceAdmin
+Full API documentation is available via **Swagger UI** once the server is running:
 
-Testing
+> **`http://localhost:3000/api-docs`**
+
+### Highlighted Routes
+
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| `POST` | `/api/auth/register` | Register a new user | Public |
+| `POST` | `/api/auth/login` | Login and receive JWT | Public |
+| `GET` | `/api/students` | Get all students | Admin |
+| `GET` | `/api/students/:id` | Get student by ID | Admin / Student |
+| `PUT` | `/api/students/:id` | Update student profile | Admin / Student |
+| `DELETE` | `/api/students/:id` | Soft delete student | Admin |
+| `POST` | `/api/courses` | Create a course | Admin |
+| `GET` | `/api/courses` | List all courses | Authenticated |
+| `POST` | `/api/courses/:id/enroll` | Enroll in a course | Student |
+| `POST` | `/api/attendance` | Mark attendance | Admin |
+
+---
+
+## Testing
+
 Run all unit and integration tests:
-bashnpm run test
+
+```bash
+npm run test
+```
+
 Run tests with coverage report:
-bashnpm run test -- --coverage
 
-Environment Variables
-VariableDescriptionExamplePORTServer port3000MONGODB_URIMongoDB connection stringmongodb://localhost:27017/smsJWT_SECRETSecret key for JWT signingyour_secret_keyJWT_EXPIRES_INJWT expiry duration7dBCRYPT_SALT_ROUNDSBcrypt hashing rounds10EMAIL_HOSTSMTP host for Nodemailersmtp.mailtrap.ioEMAIL_USERSMTP usernameyour_email_userEMAIL_PASSSMTP passwordyour_email_pass
+```bash
+npm run test -- --coverage
+```
 
-Architecture Overview
+---
+
+## Environment Variables
+
+| Variable | Description | Example |
+|---|---|---|
+| `PORT` | Server port | `3000` |
+| `MONGODB_URI` | MongoDB connection string | `mongodb://localhost:27017/sms` |
+| `JWT_SECRET` | Secret key for JWT signing | `your_secret_key` |
+| `JWT_EXPIRES_IN` | JWT expiry duration | `7d` |
+| `BCRYPT_SALT_ROUNDS` | Bcrypt hashing rounds | `10` |
+| `EMAIL_HOST` | SMTP host for Nodemailer | `smtp.mailtrap.io` |
+| `EMAIL_USER` | SMTP username | `your_email_user` |
+| `EMAIL_PASS` | SMTP password | `your_email_pass` |
+
+---
+
+## Architecture Overview
+
+```
 Client Request
 │
 ▼
@@ -82,12 +171,25 @@ Client Request
 │
 ▼
 [ Models ] ← Mongoose schemas (MongoDB)
+```
 
-Docker Services
-ServicePortDescriptionapp3000Node.js Express applicationmongo27017MongoDB database
+---
 
-Scripts
-CommandDescriptionnpm run devStart dev server with hot reloadnpm run buildCompile TypeScript to JavaScriptnpm startRun compiled production buildnpm run testRun all testsnpm run lintRun ESLint
+## Docker Services
 
-License
-This project is licensed under the MIT License.
+| Service | Port | Description |
+|---|---|---|
+| `app` | `3000` | Node.js Express application |
+| `mongo` | `27017` | MongoDB database |
+
+---
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server with hot reload |
+| `npm run build` | Compile TypeScript to JavaScript |
+| `npm start` | Run compiled production build |
+| `npm run test` | Run all tests |
+| `npm run lint` | Run ESLint |
